@@ -16,7 +16,15 @@ No test suite is configured.
 
 ## Architecture
 
-This is a single-file React app (`src/App.jsx`) with no routing, no external state library, and no backend — all state lives in `useState` hooks inside the one `App` component.
+React app with no routing, no external state library, and no backend. `transactions` state lives in `App` and is passed down to child components.
+
+**Component tree:**
+```
+App                      — owns transactions state, passes it to children
+├── Summary              — receives transactions, computes totalIncome/totalExpenses/balance internally
+├── TransactionForm      — owns its own form state, calls onAdd(transaction) prop when submitted
+└── TransactionList      — receives transactions, owns filter state internally
+```
 
 **Known intentional issues (course material):**
 - Transaction #4 ("Freelance Work") has `type: "expense"` but `category: "salary"` — data inconsistency.
